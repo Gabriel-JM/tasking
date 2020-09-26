@@ -1,2 +1,2 @@
-# tasking
-(Study) A Task manager
+# Tasking
+**Study** - A Task manager
