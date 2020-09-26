@@ -4,7 +4,9 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "migration": "knex migrate:latest",
+    "migration:reset": "knex migrate:rollback"
   },
   "license": "ISC",
   "devDependencies": {
