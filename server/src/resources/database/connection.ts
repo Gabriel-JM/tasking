@@ -3,7 +3,7 @@ import path from 'path'
 import { EnvironmentOptions } from '../../protocols/infra'
 
 const dbNames = {
-  development: path.join(__dirname, 'database.sqlite'),
+  development: path.join(__dirname, 'dev.db'),
   test: ':memory:'
 }
 

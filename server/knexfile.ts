@@ -3,7 +3,7 @@ import path from 'path'
 module.exports = {
   client: 'sqlite3',
   connection: {
-    filename: path.resolve('src', 'resources', 'database', 'database.sqlite'),
+    filename: path.resolve('src', 'resources', 'database', 'dev.db'),
     charset: 'utf8'
   },
   migrations: {
