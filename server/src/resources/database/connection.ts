@@ -15,6 +15,7 @@ export function connectionDatabase(databaseEnv: EnvironmentOptions) {
       charset: 'utf8'
     },
     migrations: {
+      extension: 'ts',
       directory: path.join(__dirname, 'migrations')
     },
     useNullAsDefault: true,
