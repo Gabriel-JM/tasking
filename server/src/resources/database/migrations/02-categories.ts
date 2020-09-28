@@ -5,6 +5,9 @@ export function up(knex: Knex) {
     table.increments('id').primary().notNullable()
     table.string('name').notNullable()
     table.string('color', 7).defaultTo('#333333')
+    table.integer('user_id').notNullable()
+
+    table.foreign('user_id').references('users.id')
   })
 }
 
