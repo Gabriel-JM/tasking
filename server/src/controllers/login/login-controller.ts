@@ -1,13 +1,15 @@
 import { HttpRequest, Repository } from '../../protocols/infra'
 import { User } from '../../protocols/models'
+import { Hasher } from '../../protocols/utils'
+import { TokenGenerator } from '../../protocols/utils/token-generator'
 import { HttpResponse } from '../../resources/http/http-response'
 
 export class LoginController {
 
   constructor(
     private readonly repository: Repository<User>,
-    private readonly passwordHasher: any,
-    private readonly tokenGenerator: any
+    private readonly passwordHasher: Hasher,
+    private readonly tokenGenerator: TokenGenerator
   ) {}
 
   async create(request: HttpRequest) {
