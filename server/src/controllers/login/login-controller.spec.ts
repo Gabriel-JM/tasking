@@ -1,0 +1,71 @@
+import { Repository } from '../../protocols/infra'
+import { User } from '../../protocols/models'
+import { LoginController } from './login-controller'
+
+function makeSut() {
+  const repositorySpy = { save(_content: any) {} } as Repository<User>
+  const passwordHasherSpy: any = { hash() {} }
+  const tokenGeneratorSpy: any = { generate() {} }
+  const sut = new LoginController(repositorySpy, passwordHasherSpy, tokenGeneratorSpy)
+
+  return {
+    sut,
+    repositorySpy,
+    passwordHasherSpy,
+    tokenGeneratorSpy
+  }
+}
+
+describe('Login Controller', () => {
+  it('should return the user id, username and token when new user is registered', async () => {
+    let { sut, repositorySpy, passwordHasherSpy, tokenGeneratorSpy } = makeSut()
+    const httpRequest = {
+      params: {},
+      query: {},
+      body: {
+        username: 'any_username',
+        password: 'any_password'
+      }
+    }
+
+    passwordHasherSpy.hash = jest.fn((_str) => 'hashed_password')
+    tokenGeneratorSpy.generate = jest.fn((_user) => 'any_token')
+
+    const repositorySaveSpy = jest
+      .spyOn(repositorySpy, 'save')
+      .mockImplementationOnce(() => Promise.resolve(
+        {
+          id: 1,
+          username: 'any_username',
+          password: 'any_password'
+        }
+      )
+    )
+
+    const response = await sut.create(httpRequest)
+    
+    expect(passwordHasherSpy.hash).toHaveBeenCalledTimes(1)
+    expect(passwordHasherSpy.hash).toHaveBeenCalledWith('any_password')
+
+    expect(tokenGeneratorSpy.generate).toHaveBeenCalledTimes(1)
+    expect(tokenGeneratorSpy.generate).toHaveBeenCalledWith({
+      id: 1,
+      username: 'any_username',
+      password: 'any_password'
+    })
+
+    expect(repositorySaveSpy).toHaveBeenCalledWith({
+      username: 'any_username',
+      password: 'hashed_password'
+    })
+
+    expect(response.status).toBe(200)
+    expect(response.body).toEqual({
+      id: 1,
+      username: 'any_username',
+      token: 'any_token'
+    })
+  })
+
+
+})

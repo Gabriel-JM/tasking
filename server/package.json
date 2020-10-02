@@ -4,7 +4,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand --no-cache",
+    "test:watch": "npm test -- --watch",
     "migration": "knex migrate:latest --knexfile knexfile.ts",
     "migration:reset": "knex migrate:rollback"
   },
