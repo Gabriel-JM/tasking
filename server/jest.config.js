@@ -3,5 +3,7 @@ module.exports = {
   testEnvironment: "node",
   testMatch: [
     "**/?(*.)+(spec|test).[tj]s?(x)"
-  ]
+  ],
+  coverageDirectory: 'coverage',
+  collectCoverage: true
 }
