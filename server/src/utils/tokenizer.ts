@@ -1,5 +1,5 @@
 import { User } from '../protocols/models'
-import { TokenGenerator } from '../protocols/utils'
+import { TokenGenerator, TokenVerificationResult } from '../protocols/utils'
 import JWT from 'jsonwebtoken'
 
 const maxExperitionDate = 24 * 60 * 60
@@ -17,6 +17,6 @@ export class Tokenizer implements TokenGenerator {
   verify(tokenToVerify: string) {
     const verification = JWT.verify(tokenToVerify, this.secretKey)
 
-    return verification.toString()
+    return verification as TokenVerificationResult
   }
 }
