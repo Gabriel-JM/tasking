@@ -15,7 +15,7 @@ export class LoginController {
   async create(request: HttpRequest) {
     try {
       const { username, password } = request.body as User
-      const hashedPassword = this.passwordHasher.hash(password)
+      const hashedPassword = await this.passwordHasher.hash(password)
 
       const userCredentials = {
         username,
