@@ -4,7 +4,7 @@ import { EnvironmentOptions } from '../../protocols/infra'
 
 const dbNames = {
   development: path.join(__dirname, 'dev.db'),
-  test: ':memory:'
+  test: path.join(__dirname, 'test.db')
 }
 
 export function connectionDatabase(databaseEnv: EnvironmentOptions) {
