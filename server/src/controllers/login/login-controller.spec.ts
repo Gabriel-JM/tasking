@@ -17,16 +17,17 @@ function makeSut() {
 }
 
 describe('Login Controller', () => {
+  const httpRequest = {
+    params: {},
+    query: {},
+    body: {
+      username: 'any_username',
+      password: 'any_password'
+    }
+  }
+
   it('should return the user id, username and token when new user is registered', async () => {
     let { sut, repositorySpy, passwordHasherSpy, tokenGeneratorSpy } = makeSut()
-    const httpRequest = {
-      params: {},
-      query: {},
-      body: {
-        username: 'any_username',
-        password: 'any_password'
-      }
-    }
 
     passwordHasherSpy.hash = jest.fn((_str) => 'hashed_password')
     tokenGeneratorSpy.generate = jest.fn((_user) => 'any_token')
@@ -67,5 +68,20 @@ describe('Login Controller', () => {
     })
   })
 
+  it('should return a 500 response if repository throws some error', async () => {
+    let { sut, repositorySpy, passwordHasherSpy, tokenGeneratorSpy } = makeSut()
 
+    passwordHasherSpy.hash = jest.fn((_str) => 'hashed_password')
+    tokenGeneratorSpy.generate = jest.fn((_user) => 'any_token')
+
+    jest.spyOn(repositorySpy, 'save')
+      .mockImplementationOnce(() => { throw Error('Repository Error') })
+
+    const response = await sut.create(httpRequest)
+
+    expect(response.status).toBe(500)
+    expect(response.body).toEqual({
+      error: 'Repository Error'
+    })
+  })
 })
