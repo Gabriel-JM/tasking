@@ -26,6 +26,15 @@ export class HttpResponse {
     }
   }
 
+  static notAcceptable(error: Error | string) {
+    return <HttpResponseData> {
+      status: 406,
+      body: {
+        error: getErrorMessage(error)
+      }
+    }
+  }
+
   static serverError(error: Error | string) {
     return <HttpResponseData> {
       status: 500,
