@@ -6,6 +6,8 @@ export const responseBySqliteError: StringKeyAccess = {
     if(msg.includes('UNIQUE')) {
       return HttpResponse.notAcceptable(msg)
     }
+
+    return this.SQLITE_ERROR(msg)
   },
 
   SQLITE_ERROR(msg: string) {
