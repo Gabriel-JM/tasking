@@ -2,6 +2,7 @@ import { HttpRequest, Repository } from '../../protocols/infra'
 import { User } from '../../protocols/models'
 import { Hasher } from '../../protocols/utils'
 import { TokenGenerator } from '../../protocols/utils/token-generator'
+import { ErrorParser } from '../../resources/errors/error-parser'
 import { HttpResponse } from '../../resources/http/http-response'
 
 export class LoginController {
@@ -24,7 +25,7 @@ export class LoginController {
 
       const user = await this.repository.save!(userCredentials)
 
-      const token = await this.tokenGenerator.generate(user)
+      const token = this.tokenGenerator.generate(user)
 
       return HttpResponse.ok({
         id: user.id,
@@ -32,7 +33,7 @@ export class LoginController {
         token
       })
     } catch(catchedError) {
-      return HttpResponse.serverError(catchedError)
+      return ErrorParser.catch(catchedError)
     }
   }
 }
