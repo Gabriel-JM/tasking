@@ -1,3 +1,4 @@
 node_modules
 src/resources/database/dev.db
 coverage
+.env
