@@ -1,5 +1,6 @@
 import { Repository } from '../../protocols/infra'
 import { User } from '../../protocols/models'
+import { SqliteError } from '../../protocols/utils'
 import { LoginController } from './login-controller'
 
 function makeSut() {
@@ -69,7 +70,7 @@ describe('Login Controller', () => {
   })
 
   it('should return a 500 response if repository throws some error', async () => {
-    let { sut, repositorySpy, passwordHasherSpy, tokenGeneratorSpy } = makeSut()
+    const { sut, repositorySpy, passwordHasherSpy, tokenGeneratorSpy } = makeSut()
 
     passwordHasherSpy.hash = jest.fn((_str) => 'hashed_password')
     tokenGeneratorSpy.generate = jest.fn((_user) => 'any_token')
@@ -82,6 +83,27 @@ describe('Login Controller', () => {
     expect(response.status).toBe(500)
     expect(response.body).toEqual({
       error: 'Repository Error'
+    })
+  })
+
+  it('should return a 406 response for unique constraint database error', async () => {
+    const { sut, repositorySpy, passwordHasherSpy, tokenGeneratorSpy } = makeSut()
+
+    passwordHasherSpy.hash = jest.fn((_str) => 'hashed_password')
+    tokenGeneratorSpy.generate = jest.fn((_user) => 'any_token')
+
+    jest.spyOn(repositorySpy, 'save')
+      .mockImplementationOnce(() => {
+        const error = new Error('SQLITE_CONSTRAINT UNIQUE error') as SqliteError
+        error.code = 'SQLITE_CONSTRAINT'
+        throw error
+      })
+
+    const response = await sut.create(httpRequest)
+
+    expect(response.status).toBe(406)
+    expect(response.body).toEqual({
+      error: 'SQLITE_CONSTRAINT UNIQUE error'
     })
   })
 })
