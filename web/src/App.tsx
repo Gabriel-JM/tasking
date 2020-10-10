@@ -1,8 +1,8 @@
 import React from 'react'
-import './App.css'
+import Title from './components/Title'
 
 function App() {
-  return <h1>Hello World</h1>
+  return <Title />
 }
 
 export default App
