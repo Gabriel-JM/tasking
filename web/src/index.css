@@ -1,5 +1,20 @@
-body {
+:root {
+  --font-color: #333;
+  --bg-color: #f0f0f0;
+
+  --main-blue: #3066fc;
+}
+
+* {
   margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--font-color);
+  background-color: var(--bg-color);
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
