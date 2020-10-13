@@ -1,0 +1,113 @@
+.input-error-warn-container {
+  --scale: 0;
+  --arrow-size: 10px;
+  --bg-color: #333;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-error-warn-container::before {
+  --x-before-margin: 86px;
+
+  width: max-content;
+  max-width: 130px;
+  content: attr(data-message);
+  font-size: 0.8rem;
+  background-color: var(--bg-color);
+  position: absolute;
+  color: white;
+  padding: 6px 8px;
+  border-radius: 5px;
+  transform:  scale(var(--scale)) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
+  transform-origin: center;
+  transition: transform 0.2s;
+  transition-delay: 30ms;
+  animation: show-up-before 3s;
+  animation-delay: 30ms;
+}
+
+.input-error-warn-container:hover::before,
+.input-error-warn-container:hover::after {
+  --scale: 1;
+}
+
+.input-error-warn-container::after {
+  --x-after-margin: 70%;
+
+  content: '';
+  border: var(--arrow-size) solid transparent;
+  border-right-color: var(--bg-color);
+  position: absolute;
+  transform: translateX(var(--x-after-margin, 0)) scale(var(--scale));
+  transition: transform 0.2s;
+  transition-delay: 30ms;
+  transform-origin: center;
+  animation: show-up-after 3s;
+  animation-delay: 30ms;
+}
+
+.error-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--danger-red);
+  animation: shake 0.3s ease-in-out;
+  animation-iteration-count: 2;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(2.5px);
+  }
+
+  75% {
+    transform: translateX(-2.5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes show-up-before {
+  0% {
+    transform: scale(0) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
+  }
+
+  15% {
+    transform: scale(1) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
+  }
+
+  85% {
+    transform: scale(1) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
+  }
+
+  100% {
+    transform: scale(0) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
+  }
+}
+
+@keyframes show-up-after {
+  0% {
+    transform: scale(0) translateX(var(--x-after-margin, 0));
+  }
+
+  15% {
+    transform: scale(1) translateX(var(--x-after-margin, 0));
+  }
+
+  85% {
+    transform: scale(1) translateX(var(--x-after-margin, 0));
+  }
+
+  100% {
+    transform: scale(0) translateX(var(--x-after-margin, 0));
+  }
+}
