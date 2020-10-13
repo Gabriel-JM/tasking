@@ -28,11 +28,12 @@
   border-radius: 4px;
   font-size: 0.82rem;
   background-color: transparent;
-  margin-right: 6px;
+  margin-right: 4px;
   transition: all 0.4s;
 }
 
 .input-field input:focus {
+  --input-bg-color: var(--main-blue);
   box-shadow: 0 0 0px 2.05px var(--main-blue-transparent);
 }
 

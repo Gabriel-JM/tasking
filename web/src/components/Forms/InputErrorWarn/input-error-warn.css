@@ -1,20 +1,18 @@
 .input-error-warn-container {
   --scale: 0;
-  --arrow-size: 10px;
+  --arrow-size: 8px;
   --bg-color: #333;
 
   position: relative;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .input-error-warn-container::before {
-  --x-before-margin: 86px;
+  --x-before-margin: 73px;
 
-  width: max-content;
-  max-width: 130px;
+  width: clamp(85px, 110px, 150px);
   content: attr(data-message);
   font-size: 0.8rem;
   background-color: var(--bg-color);

@@ -1,18 +1,28 @@
 import React from 'react'
-import AlertIcon from '../../Icons/alert-icon'
+import InputErrorWarn from '../InputErrorWarn'
 import './input-field.css'
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
-  errors?: boolean
+  errors?: {
+    type?: string
+    message?: string
+  }
 }
 
 function InputField({ label, required, errors, ...inputProps }: InputFieldProps) {
 
   function onInputError(event: React.FormEvent) {
     const input = event.target as HTMLInputElement
-    input.className === 'error' && (input.className = '')
-    !input.value && required && (input.className = 'error')
+    
+    if(input.className === 'error' && errors?.type === 'required') {
+      input.className = ''
+      return
+    }
+    
+    if(!input.value && required) {
+      input.className = 'error'
+    }
   }
 
   return (
@@ -26,7 +36,7 @@ function InputField({ label, required, errors, ...inputProps }: InputFieldProps)
           {...inputProps}
           onInput={onInputError}
         />
-        {errors && <AlertIcon className="error-icon" />}
+        {errors?.type && <InputErrorWarn message={errors.message || ''} />}
       </div>
     </label>
   )
