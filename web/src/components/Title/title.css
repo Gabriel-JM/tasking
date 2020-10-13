@@ -1,3 +1,11 @@
 .header {
   background-color: var(--main-blue);
+  margin-bottom: 10px;
+  color: var(--header-color);
+}
+
+.header-container {
+  max-width: var(--container-size);
+  margin: auto;
+  padding: 18px 12px;
 }

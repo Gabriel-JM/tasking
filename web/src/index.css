@@ -2,7 +2,10 @@
   --font-color: #333;
   --bg-color: #f0f0f0;
 
-  --main-blue: #3066fc;
+  --main-blue: #2d89cf;
+  --container-size: 1200px;
+
+  --header-color: #ddd;
 }
 
 * {
