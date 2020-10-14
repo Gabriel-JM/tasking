@@ -75,3 +75,16 @@ button.btn.danger:disabled {
   --btn-border-color: var(--danger-red-lighter);
   --btn-shadow: var(--danger-red-transparent);
 }
+
+.btn.link {
+  --btn-color: #777;
+
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  text-decoration: underline;
+}
+
+.btn.link:hover {
+  --btn-color: #505050;
+}
