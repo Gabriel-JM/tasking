@@ -17,16 +17,22 @@ function App() {
         type: 'field',
         message: 'Required fields, of many orther inputs, of thounsand of orther things about'
       }} /> 
-      <button className="btn">Botão</button>
+      <button className="btn">Botão normal</button>
       <br/>
       <br/>
-      <button className="btn" disabled>Botão</button>
+      <button className="btn" disabled>Botão normal desabiletado</button>
       <br/>
       <br/>
       <button className="btn primary">Botão</button>
       <br/>
       <br/>
       <button className="btn primary" disabled>Botão</button>
+      <br/>
+      <br/>
+      <button className="btn danger">Botão</button>
+      <br/>
+      <br/>
+      <button className="btn danger" disabled>Botão</button>
     </div>
   )
 }

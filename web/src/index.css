@@ -5,9 +5,11 @@
   --main-blue: #4d98d1; /*#2d89cf;*/
   --main-blue-darker: #256fa7;
   --main-blue-lighter: #6cb2e7;
-  --main-blue-transparent: #2d89cf67;
-  --danger-red: #bf211e;
-  --danger-red-transparent: #bf211e67;
+  --main-blue-transparent: #4d98d167;
+  --danger-red: #e25250;
+  --danger-red-darker: #bf211e;
+  --danger-red-lighter: #ec6f6d;
+  --danger-red-transparent: #e2525067;
   --container-size: 1200px;
 
   --header-color: #ddd;

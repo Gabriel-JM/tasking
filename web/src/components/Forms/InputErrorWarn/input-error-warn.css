@@ -10,7 +10,7 @@
 }
 
 .input-error-warn-container::before {
-  --x-before-margin: 64px;
+  --x-before-margin: 63px;
 
   width: 90px;
   content: attr(data-message);
@@ -26,6 +26,7 @@
   transition-delay: 30ms;
   animation: show-up-before 3s;
   animation-delay: 30ms;
+  z-index: 2;
 }
 
 .input-error-warn-container:hover::before,
@@ -46,6 +47,7 @@
   transform-origin: center;
   animation: show-up-after 3s;
   animation-delay: 30ms;
+  z-index: 2;
 }
 
 .error-icon {
@@ -79,11 +81,11 @@
     transform: scale(0) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
   }
 
-  15% {
+  10% {
     transform: scale(1) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
   }
 
-  85% {
+  90% {
     transform: scale(1) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
   }
 
@@ -97,11 +99,11 @@
     transform: scale(0) translateX(var(--x-after-margin, 0));
   }
 
-  15% {
+  10% {
     transform: scale(1) translateX(var(--x-after-margin, 0));
   }
 
-  85% {
+  90% {
     transform: scale(1) translateX(var(--x-after-margin, 0));
   }
 

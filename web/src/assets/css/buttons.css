@@ -1,5 +1,5 @@
 button.btn {
-  --btn-border-color: #555;
+  --btn-border-color: #bbba;
   --btn-bg-color: transparent;
   --btn-color: #555;
   --btn-shadow: #888b;
@@ -16,7 +16,7 @@ button.btn {
 }
 
 button.btn:hover {
-  --btn-border-color: #444;
+  --btn-border-color: #999a;
   --btn-color: #444;
   --btn-bg-color: #f0f0f0;
 }
@@ -29,7 +29,7 @@ button.btn:disabled {
   cursor: no-drop;
   --btn-bg-color: #d5d5d5;
   --btn-color: #7a7a7a;
-  --btn-border-color: #7a7a7a;
+  --btn-border-color: #bbba;
 }
 
 button.btn.primary {
@@ -40,7 +40,7 @@ button.btn.primary {
 }
 
 button.btn.primary:hover {
-  filter: brightness(1.05);
+  filter: brightness(0.9);
 }
 
 button.btn.primary:active {
@@ -52,4 +52,26 @@ button.btn.primary:disabled {
   --btn-bg-color: var(--main-blue-lighter);
   --btn-border-color: var(--main-blue-lighter);
   --btn-shadow: var(--main-blue-transparent);
+}
+
+button.btn.danger {
+  --btn-border-color: var(--danger-red);
+  --btn-bg-color: var(--danger-red);
+  --btn-color: #f5f5f5;
+  --btn-shadow: var(--danger-red-darker);
+}
+
+button.btn.danger:hover {
+  filter: brightness(0.9);
+}
+
+button.btn.danger:active {
+  box-shadow: inset 0 1px 5px var(--btn-shadow);
+  --btn-border-color: var(--danger-red-darker);
+}
+
+button.btn.danger:disabled {
+  --btn-bg-color: var(--danger-red-lighter);
+  --btn-border-color: var(--danger-red-lighter);
+  --btn-shadow: var(--danger-red-transparent);
 }
