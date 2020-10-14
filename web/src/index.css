@@ -2,7 +2,9 @@
   --font-color: #333;
   --bg-color: #f0f0f0;
 
-  --main-blue: #2d89cf;
+  --main-blue: #4d98d1; /*#2d89cf;*/
+  --main-blue-darker: #256fa7;
+  --main-blue-lighter: #6cb2e7;
   --main-blue-transparent: #2d89cf67;
   --danger-red: #bf211e;
   --danger-red-transparent: #bf211e67;
