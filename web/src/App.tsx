@@ -9,14 +9,14 @@ function App() {
     <div style={{ margin: '6px' }}>
       <Title />
       <InputField label="Texto" type="text" />
-      {/* <InputField label="Texto" type="text" required errors={{
+      <InputField label="Texto" type="text" required errors={{
         type: 'required',
         message: 'Required fields'
       }}/>
       <InputField label="Texto" type="text" errors={{
         type: 'field',
         message: 'Required fields, of many orther inputs, of thounsand of orther things about'
-      }} /> */}
+      }} /> 
       <button className="btn">Botão</button>
       <br/>
       <br/>

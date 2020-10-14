@@ -10,9 +10,9 @@
 }
 
 .input-error-warn-container::before {
-  --x-before-margin: 73px;
+  --x-before-margin: 64px;
 
-  width: clamp(85px, 110px, 150px);
+  width: 90px;
   content: attr(data-message);
   font-size: 0.8rem;
   background-color: var(--bg-color);
