@@ -5,8 +5,8 @@ import './input-field.css'
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
   errors?: {
-    type?: string
-    message?: string
+    type: string
+    message: string
   }
 }
 
@@ -36,7 +36,7 @@ function InputField({ label, required, errors, ...inputProps }: InputFieldProps)
           {...inputProps}
           onInput={onInputError}
         />
-        {errors?.type && <InputErrorWarn message={errors.message || ''} />}
+        {errors?.type && <InputErrorWarn message={errors.message} />}
       </div>
     </label>
   )
