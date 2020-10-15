@@ -11,6 +11,7 @@ function InputErrorWarn({ message }: InputErrorWarnProps) {
     <div
       className="input-error-warn-container"
       data-message={message}
+      data-testid="input-error-warn-container"
     >
       <AlertIcon className="error-icon" />
     </div>
