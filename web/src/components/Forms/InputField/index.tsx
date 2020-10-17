@@ -1,27 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import InputErrorWarn from '../InputErrorWarn'
 import './input-field.css'
 
-interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string
-  errors?: {
-    type: string
-    message: string
-  }
+interface InputError {
+  type: string
+  message: string
 }
 
-function InputField({ label, required, errors, ...inputProps }: InputFieldProps) {
+interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label: string
+  errors?: InputError
+  ref?: any
+}
 
+function InputField({ label, required, errors, ref, ...inputProps }: InputFieldProps) {
+  const [fieldError, setFieldError] = useState<InputError>()
+  
+  useEffect(() => { setFieldError(errors) }, [errors])
+  
   function onInputError(event: React.FormEvent) {
     const input = event.target as HTMLInputElement
     
-    if(input.className === 'error' && errors?.type === 'required') {
+    if(input.className === 'error' && fieldError?.type === 'required') {
       input.className = ''
+      setFieldError(undefined)
       return
     }
     
     if(!input.value && required) {
       input.className = 'error'
+      setFieldError({
+        type: 'required',
+        message: 'This field is required'
+      })
     }
   }
 
@@ -33,10 +44,11 @@ function InputField({ label, required, errors, ...inputProps }: InputFieldProps)
       <div className="input-field">
         <input
           className={errors ? 'error' : ''}
+          ref={ref}
           {...inputProps}
           onInput={onInputError}
         />
-        {errors?.type && <InputErrorWarn message={errors.message} />}
+        {fieldError?.type && <InputErrorWarn message={fieldError.message} />}
       </div>
     </label>
   )

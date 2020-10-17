@@ -21,10 +21,10 @@
 }
 
 .input-field input {
-  --input-bg-color: #444;
+  --input-border-color: #777;
 
   padding: 6px 10px;
-  border: 1px solid var(--input-bg-color);
+  border: 1px solid var(--input-border-color);
   border-radius: 4px;
   font-size: 0.82rem;
   background-color: transparent;
@@ -33,12 +33,12 @@
 }
 
 .input-field input:focus {
-  --input-bg-color: var(--main-blue);
+  --input-border-color: var(--main-blue);
   box-shadow: 0 0 0px 2.05px var(--main-blue-transparent);
 }
 
 .input-field input.error {
-  --input-bg-color: var(--danger-red);
+  --input-border-color: var(--danger-red);
 }
 
 .input-field input.error:focus {
