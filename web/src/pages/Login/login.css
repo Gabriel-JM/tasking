@@ -1,0 +1,4 @@
+.login-container {
+  max-width: var(--container-size);
+  margin: auto;
+}
