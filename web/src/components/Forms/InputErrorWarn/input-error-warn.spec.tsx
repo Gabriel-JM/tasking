@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import InputErrorWarn from '.'
 
 describe('Input Error Warn Component', () => {
@@ -14,9 +14,5 @@ describe('Input Error Warn Component', () => {
     expect(element.dataset.message).toBe('any_message')
 
     expect(screen.getByLabelText(/alert icon/i)).toBeInTheDocument()
-  })
-
-  it('should hover over the container and a tooltip must be displayed', () => {
-    
   })
 })
