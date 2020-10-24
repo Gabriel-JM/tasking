@@ -1,6 +1,7 @@
 :root {
   --font-color: #333;
   --bg-color: #f0f0f0;
+  --container-border-color: #bbb;
 
   --main-blue: #4d98d1; /*#2d89cf;*/
   --main-blue-darker: #256fa7;
