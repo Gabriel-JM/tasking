@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { forwardRef, ForwardRefRenderFunction, InputHTMLAttributes, useEffect, useState } from 'react'
 import InputErrorWarn from '../InputErrorWarn'
 import './input-field.css'
 
@@ -7,13 +7,15 @@ interface InputError {
   message: string
 }
 
-interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   errors?: InputError
-  ref?: any
 }
 
-function InputField({ label, required, errors, ref, ...inputProps }: InputFieldProps) {
+const InputField: ForwardRefRenderFunction<HTMLInputElement, InputFieldProps> = (
+  { label, required, errors, ...inputProps },
+  ref
+) => {
   const [fieldError, setFieldError] = useState<InputError>()
   
   useEffect(() => { setFieldError(errors) }, [errors])
@@ -54,4 +56,4 @@ function InputField({ label, required, errors, ref, ...inputProps }: InputFieldP
   )
 }
 
-export default InputField
+export default forwardRef(InputField)
