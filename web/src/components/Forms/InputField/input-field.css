@@ -1,7 +1,6 @@
 .input-container {
   display: block;
   width: fit-content;
-  padding: 8px;
 }
 
 .input-container span {
@@ -20,15 +19,20 @@
   align-items: center;
 }
 
+.input-field {
+  display: grid;
+  grid-template-columns: auto 28px;
+}
+
 .input-field input {
   --input-border-color: #777;
 
+  width: auto;
   padding: 6px 10px;
   border: 1px solid var(--input-border-color);
   border-radius: 4px;
   font-size: 0.82rem;
   background-color: transparent;
-  margin-right: 4px;
   transition: all 0.4s;
 }
 

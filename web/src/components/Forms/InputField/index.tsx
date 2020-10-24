@@ -1,4 +1,4 @@
-import React, { forwardRef, ForwardRefRenderFunction, InputHTMLAttributes, useEffect, useState } from 'react'
+import React, { FormEvent, forwardRef, ForwardRefRenderFunction, InputHTMLAttributes, useEffect, useState } from 'react'
 import InputErrorWarn from '../InputErrorWarn'
 import './input-field.css'
 
@@ -18,12 +18,14 @@ const InputField: ForwardRefRenderFunction<HTMLInputElement, InputFieldProps> = 
 ) => {
   const [fieldError, setFieldError] = useState<InputError>()
   
-  useEffect(() => { setFieldError(errors) }, [errors])
+  useEffect(() => {
+    setFieldError(errors)
+  }, [errors])
   
   function onInputError(event: React.FormEvent) {
     const input = event.target as HTMLInputElement
     
-    if(input.className === 'error' && fieldError?.type === 'required') {
+    if(input.value && input.className === 'error' && fieldError?.type === 'required') {
       input.className = ''
       setFieldError(undefined)
       return
@@ -33,9 +35,15 @@ const InputField: ForwardRefRenderFunction<HTMLInputElement, InputFieldProps> = 
       input.className = 'error'
       setFieldError({
         type: 'required',
-        message: 'This field is required'
+        message: 'Required Field'
       })
     }
+  }
+
+  function handleOnInput(event: FormEvent<HTMLInputElement>) {
+    if(inputProps.onInput) inputProps.onInput(event)
+
+    onInputError(event)
   }
 
   return (
@@ -45,10 +53,10 @@ const InputField: ForwardRefRenderFunction<HTMLInputElement, InputFieldProps> = 
       >{label}</span>
       <div className="input-field">
         <input
-          className={errors ? 'error' : ''}
+          className={fieldError ? 'error' : ''}
           ref={ref}
           {...inputProps}
-          onInput={onInputError}
+          onInput={handleOnInput}
         />
         {fieldError?.type && <InputErrorWarn message={fieldError.message} />}
       </div>
