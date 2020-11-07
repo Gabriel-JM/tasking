@@ -12,6 +12,8 @@ describe('Tokenizer', () => {
 
     const token = sut.generate({
       id: 1,
+      name: 'any_name',
+      email: 'any@email.com',
       username: 'any_username',
       password: 'any_password'
     })
@@ -24,6 +26,8 @@ describe('Tokenizer', () => {
     const sut = makeSut()
     const user = {
       id: 1,
+      name: 'any_name',
+      email: 'any@email.com',
       username: 'any_username',
       password: 'any_password'
     }

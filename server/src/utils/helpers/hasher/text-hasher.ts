@@ -1,4 +1,4 @@
-import { Hasher } from '../protocols/utils'
+import { Hasher } from '../../../protocols/utils'
 import bcrypt from 'bcrypt'
 
 export class TextHasher implements Hasher {

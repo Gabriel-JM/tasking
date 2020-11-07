@@ -1,5 +1,5 @@
-import { User } from '../protocols/models'
-import { TokenGenerator, TokenVerificationResult } from '../protocols/utils'
+import { User } from '../../../protocols/models'
+import { TokenGenerator, TokenVerificationResult } from '../../../protocols/utils'
 import JWT from 'jsonwebtoken'
 
 const maxExperitionDate = 24 * 60 * 60
