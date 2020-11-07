@@ -2,8 +2,8 @@ import { LoginController } from '../../controllers/login/login-controller'
 import { EnvironmentOptions } from '../../protocols/infra'
 import { LoginRepository } from '../../repositories/login/login-repository'
 import { connectionDatabase } from '../../resources/database/connection'
-import { TextHasher } from '../../utils/text-hasher'
-import { Tokenizer } from '../../utils/tokenizer'
+import { TextHasher } from '../../utils/helpers/hasher/text-hasher'
+import { Tokenizer } from '../../utils/helpers/token/tokenizer'
 
 export default () => {
   const passwordHasher = new TextHasher()
