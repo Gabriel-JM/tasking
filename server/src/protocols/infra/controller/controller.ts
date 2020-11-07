@@ -1,4 +1,3 @@
-import { Entity } from '../models'
 import { ControllerFunction } from './controller-function'
 
 export interface Controller {

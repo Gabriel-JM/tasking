@@ -1,4 +1,4 @@
-import { StringKeyAccess } from '../utils'
+import { StringKeyAccess } from '../../utils'
 
 export interface HttpRequest {
   params: StringKeyAccess,
