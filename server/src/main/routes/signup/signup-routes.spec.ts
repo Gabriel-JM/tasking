@@ -18,7 +18,9 @@ describe('Signup Routes', () => {
     const response = await request(app)
       .post('/signup')
       .send({
+        name: 'user name',
         username: 'any.user',
+        email: 'user@email.com',
         password: 'any.password'
       })
     ;
