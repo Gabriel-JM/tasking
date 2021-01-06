@@ -1,7 +1,8 @@
 import { StringKeyAccess } from '../../utils'
 
 export interface HttpRequest {
-  params: StringKeyAccess,
-  query: StringKeyAccess,
+  headers: StringKeyAccess
+  params: StringKeyAccess
+  query: StringKeyAccess
   body: object | object[]
 }

@@ -6,6 +6,7 @@ export function ExpressRouterAdapter(controller: Controller) {
   function adapt(routerFunc: ControllerFunction) {
     return async (req: Request, res: Response) => {
       const httpRequest: HttpRequest = {
+        headers: req.headers,
         params: req.params,
         query: req.query as StringKeyAccess,
         body: req.body
