@@ -7,7 +7,8 @@
     "start": "nodemon -q --exec ts-node src/main",
     "dotenv": "node -r dotenv-safe/config",
     "test": "npm run dotenv -- ./node_modules/jest/bin/jest.js --runInBand --no-cache",
-    "test:watch": "npm test -- --watch",
+    "test:unit": "npm test -- --watch -c jest-unit.config.js",
+    "test:integration": "npm test -- --watch -c jest-integration.config.js",
     "migration": "knex migrate:latest --knexfile knexfile.ts",
     "migration:reset": "knex migrate:rollback"
   },
