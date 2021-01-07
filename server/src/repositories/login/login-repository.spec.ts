@@ -11,7 +11,9 @@ function makeSut() {
 
 describe('Login Repository', () => {
   const user = {
+    name: 'any name',
     username: 'any_user',
+    email: 'any@email.com',
     password: 'hashed_password'
   }
 

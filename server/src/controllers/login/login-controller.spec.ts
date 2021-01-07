@@ -33,6 +33,7 @@ function makeSut() {
 
 describe('Login Controller', () => {
   const httpRequest = {
+    headers: {},
     params: {},
     query: {},
     body: {
