@@ -12,18 +12,21 @@
 .input-error-warn-container::before {
   --x-before-margin: 63px;
 
-  width: 90px;
+  min-width: 90px;
+  width: auto;
+  max-width: 120px;
   content: attr(data-message);
   font-size: 0.8rem;
   background-color: var(--bg-color);
   position: absolute;
+  bottom: 0px;
+  right: 0px;
   color: white;
   padding: 6px 8px;
   border-radius: 5px;
-  transform:  scale(var(--scale)) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
-  transform-origin: center;
-  transition: transform 0.2s;
-  transition-delay: 30ms;
+  transform: scale(var(--scale)) translate(0, -30px);
+  transform-origin: bottom right;
+  transition: transform 0.25s;
   animation: show-up-before 3s;
   animation-delay: 30ms;
   z-index: 2;
@@ -39,11 +42,10 @@
 
   content: '';
   border: var(--arrow-size) solid transparent;
-  border-right-color: var(--bg-color);
+  border-top-color: var(--bg-color);
   position: absolute;
-  transform: translateX(var(--x-after-margin, 0)) scale(var(--scale));
-  transition: transform 0.2s;
-  transition-delay: 30ms;
+  transform: scale(var(--scale)) translateY(-13px);
+  transition: transform 0.25s;
   transform-origin: center;
   animation: show-up-after 3s;
   animation-delay: 30ms;
@@ -79,36 +81,36 @@
 
 @keyframes show-up-before {
   0% {
-    transform: scale(0) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
+    transform: scale(0) translate(0, -30px);
   }
 
   10% {
-    transform: scale(1) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
+    transform: scale(1) translate(0, -30px);
   }
 
   90% {
-    transform: scale(1) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
+    transform: scale(1) translate(0, -30px);
   }
 
   100% {
-    transform: scale(0) translateX(calc((var(--arrow-size) + var(--x-before-margin))));
+    transform: scale(0) translate(0, -30px);
   }
 }
 
 @keyframes show-up-after {
   0% {
-    transform: scale(0) translateX(var(--x-after-margin, 0));
+    transform: scale(0) translateY(-13px);
   }
 
   10% {
-    transform: scale(1) translateX(var(--x-after-margin, 0));
+    transform: scale(1) translateY(-13px);
   }
 
   90% {
-    transform: scale(1) translateX(var(--x-after-margin, 0));
+    transform: scale(1) translateY(-13px);
   }
 
   100% {
-    transform: scale(0) translateX(var(--x-after-margin, 0));
+    transform: scale(0) translateY(-13px);
   }
 }
