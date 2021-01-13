@@ -5,7 +5,7 @@ button.btn {
   --btn-shadow: #888b;
 
   padding: 10px 22px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--btn-color);
   background-color: var(--btn-bg-color);
   border: 1px solid var(--btn-border-color);
