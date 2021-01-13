@@ -1,5 +1,6 @@
 .login-container {
   max-width: var(--container-size);
+  width: fit-content;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -36,4 +37,21 @@
   display: block;
   margin-top: 5px;
   width: 100%;
+}
+
+.require-message {
+  align-self: start;
+  margin: 6px 0 10px;
+  color: #888;
+}
+
+.require-message::before {
+  content: '*';
+  color: var(--danger-red);
+  margin-right: 4px;
+}
+
+.register-link {
+  margin-left: 6px;
+  color: var(--blue-darker);
 }

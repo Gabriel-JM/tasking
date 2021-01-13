@@ -5,6 +5,7 @@ import { getInputFieldError } from '../../utils'
 import { schema } from './form-validation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import './login.css'
+import { Link } from 'react-router-dom'
 
 interface LoginData {
   username: string
@@ -48,9 +49,15 @@ function Login() {
           ref={register({ required: true })}
           errors={getInputFieldError(errors.password)}
         />
-        <span>* required fields.</span>
+
         <button className="btn primary">Login</button>
       </form>
+      <span className="require-message">Required fields.</span>
+
+      <div>
+        <span>Don't have an account?</span>
+        <Link className="register-link" to="/register">Register</Link>
+      </div>
     </section>
   )
 }

@@ -3,10 +3,10 @@
   --bg-color: #f0f0f0;
   --container-border-color: #bbb;
 
-  --main-blue: #4d98d1; /*#2d89cf;*/
-  --main-blue-darker: #256fa7;
-  --main-blue-lighter: #6cb2e7;
-  --main-blue-transparent: #4d98d167;
+  --blue: #4d98d1; /*#2d89cf;*/
+  --blue-darker: #256fa7;
+  --blue-lighter: #6cb2e7;
+  --blue-transparent: #4d98d167;
   --danger-red: #e25250;
   --danger-red-darker: #bf211e;
   --danger-red-lighter: #ec6f6d;

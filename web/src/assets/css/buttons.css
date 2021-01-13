@@ -33,10 +33,10 @@ button.btn:disabled {
 }
 
 button.btn.primary {
-  --btn-border-color: var(--main-blue);
-  --btn-bg-color: var(--main-blue);
+  --btn-border-color: var(--blue);
+  --btn-bg-color: var(--blue);
   --btn-color: #f5f5f5;
-  --btn-shadow: var(--main-blue-darker);
+  --btn-shadow: var(--blue-darker);
 }
 
 button.btn.primary:hover {
@@ -45,13 +45,13 @@ button.btn.primary:hover {
 
 button.btn.primary:active {
   box-shadow: inset 0 1px 5px var(--btn-shadow);
-  --btn-border-color: var(--main-blue-darker);
+  --btn-border-color: var(--blue-darker);
 }
 
 button.btn.primary:disabled {
-  --btn-bg-color: var(--main-blue-lighter);
-  --btn-border-color: var(--main-blue-lighter);
-  --btn-shadow: var(--main-blue-transparent);
+  --btn-bg-color: var(--blue-lighter);
+  --btn-border-color: var(--blue-lighter);
+  --btn-shadow: var(--blue-transparent);
 }
 
 button.btn.danger {
