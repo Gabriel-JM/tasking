@@ -1,12 +1,21 @@
 import Knex from 'knex'
-import { Repository } from '../../protocols/infra'
+import { ILoginRepository } from '../../protocols/domain'
 import { User } from '../../protocols/models'
 
-export class LoginRepository implements Repository<User> {
+export class LoginRepository implements ILoginRepository {
   constructor(
     private readonly table: string,
     private readonly knex: Knex<User>
   ) {}
+
+  async findByUsernameAndPassword(content: { username: string, password: string }) {
+    const [user] = await this.knex(this.table).where({
+      username: content.username,
+      password: content.password
+    })
+
+    return user || null
+  }
 
   async save(user: User) {
     const [newUserId] = await this.knex(this.table).insert(user)
