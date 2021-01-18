@@ -1,10 +1,12 @@
-import { Repository } from '../../protocols/infra'
-import { User } from '../../protocols/models'
+import { ILoginRepository } from '../../protocols/domain'
 import { SqliteError } from '../../protocols/utils'
 import { LoginController } from './login-controller'
 
 function makeSut() {
-  const repositorySpy = { save(_content: any) {} } as Repository<User>
+  const repositorySpy = <ILoginRepository> {
+    findByUsernameAndPassword(_content: any) {},
+    save(_content: any) {}
+  }
   const passwordHasherSpy = {
     hash: jest.fn(async () => 'hashed_password'),
     compare: jest.fn()
@@ -121,6 +123,39 @@ describe('Login Controller', () => {
     expect(response.body).toEqual({
       field: '',
       error: 'SQLITE_CONSTRAINT UNIQUE error'
+    })
+  })
+
+  it('should return a 406 response if no authorization field is provided in login', async () => {
+    const { sut } = makeSut()
+    const response = await sut.index(httpRequest)
+
+    expect(response.status).toBe(406)
+    expect(response.body).toEqual({
+      field: 'authorization',
+      error: 'Authorization field cannot be empty'
+    })
+  })
+
+  it('should return a 404 response if no user was found with the given credentials', async () => {
+    const { sut, repositorySpy } = makeSut()
+
+    jest.spyOn(repositorySpy, 'findByUsernameAndPassword')
+      .mockResolvedValueOnce(null)
+
+    const response = await sut.index({
+      ...httpRequest,
+      headers: {
+        authorization: 'Basic ' + Buffer
+          .from('user:password')
+          .toString('base64')
+      }
+    })
+
+    expect(response.status).toBe(404)
+    expect(response.body).toEqual({
+      field: '',
+      error: 'Invalid username or password'
     })
   })
 })
