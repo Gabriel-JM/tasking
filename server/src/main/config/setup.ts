@@ -1,10 +1,10 @@
 import express, { Application } from 'express'
-import dotenv from 'dotenv-safe'
-import { cors } from './cors'
+import cors from 'cors'
 
 export default (app: Application) => {
-  dotenv.config()
-
   app.use(express.json())
-  app.use(cors)
+  app.use(cors({
+    maxAge: 86400,
+    origin: process.env.WEB_URL
+  }))
 }

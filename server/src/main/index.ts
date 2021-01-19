@@ -1,3 +1,4 @@
+import 'dotenv-safe/config'
 import { EnvironmentOptions } from '../protocols/infra'
 import { connectionDatabase } from '../resources/database/connection'
 import { app } from './app'
