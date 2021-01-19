@@ -7,14 +7,14 @@ interface RequestParams {
 
 async function request({ method, url, customHeaders, body }: RequestParams) {
   try {
-    const options = <RequestInit> {
+    const options = {
       headers: customHeaders || {
         'Content-Type': 'application/json'
       },
       method: method.toUpperCase(),
       body: JSON.stringify(body),
       mode: 'cors'
-    }
+    } as RequestInit
 
     const response = await fetch(url, options)
     const data = await response.json()
