@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import InputField from '../../components/Forms/InputField'
 import { getInputFieldError } from '../../utils'
 import { schema } from './form-validation'
+import loginService from '../../services/login'
+import './register.css'
 
 interface RegisterData {
   name: string
@@ -19,14 +21,16 @@ function Register() {
   })
 
   async function onFormSubmit(data: RegisterData) {
-    console.log(data)
+    const response = await loginService.register(data)
+
+    console.log(response, data)
   }
 
   return (
     <section className="register-container">
-      <h2>Register</h2>
+      <h2 className="register-title">Register</h2>
 
-      <form onSubmit={handleSubmit(onFormSubmit)}>
+      <form className="register-form" onSubmit={handleSubmit(onFormSubmit)}>
         <InputField
           required
           label="Name"
@@ -57,10 +61,12 @@ function Register() {
           errors={getInputFieldError(errors.password)}
         />
 
-        <button className="btn primary">Done</button>
-        <Link to="/">
-          <button className="btn">Cancel</button>
-        </Link>
+        <div className="register-form-actions">
+          <button className="btn primary">Done</button>
+          <Link to="/">
+            <button className="btn">Cancel</button>
+          </Link>
+        </div>
       </form>
     </section>
   )
