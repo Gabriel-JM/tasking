@@ -43,12 +43,17 @@
   align-self: start;
   margin: 6px 0 10px;
   color: #888;
+  font-size: 0.8rem;
 }
 
 .require-message::before {
   content: '*';
   color: var(--danger-red);
   margin-right: 4px;
+}
+
+.register-link-container {
+  font-size: 0.85rem;
 }
 
 .register-link {

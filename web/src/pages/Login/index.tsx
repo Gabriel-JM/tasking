@@ -54,7 +54,7 @@ function Login() {
       </form>
       <span className="require-message">Required fields.</span>
 
-      <div>
+      <div className="register-link-container">
         <span>Don't have an account?</span>
         <Link className="register-link" to="/register">Register</Link>
       </div>
