@@ -1,3 +1,4 @@
+import { JsonWebTokenError } from 'jsonwebtoken'
 import { Tokenizer } from './tokenizer'
 
 function makeSut(secretKey = 'secret') {
@@ -45,6 +46,6 @@ describe('Tokenizer', () => {
     const sut = makeSut()
     const token = 'invalid_token'
 
-    expect(() => sut.verify(token)).toThrowError('jwt malformed')
+    expect(() => sut.verify(token)).toThrowError(JsonWebTokenError)
   })
 })
