@@ -31,4 +31,23 @@ describe('Signup Routes', () => {
     expect(response.body.token).toBeDefined()
     done()
   })
+
+  it('should return a 400 response, with the correct error', async done => {
+    const response = await request(app)
+      .post('/signup')
+      .send({
+        name: 'user name',
+        username: 'any.user',
+        email: 'invalid_email.com',
+        password: 'any.password'
+      })
+    ;
+
+    expect(response.status).toBe(400)
+    expect(response.body).toEqual({
+      field: 'email',
+      error: 'Invalid e-mail'
+    })
+    done()
+  })
 })
