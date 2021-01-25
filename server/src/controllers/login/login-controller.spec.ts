@@ -4,6 +4,7 @@ import { LoginController } from './login-controller'
 
 function makeSut() {
   const repositorySpy = <ILoginRepository> {
+    find(_id: number) {},
     findByUsernameAndPassword(_content: any) {},
     save(_content: any) {}
   }
@@ -156,6 +157,31 @@ describe('Login Controller', () => {
     expect(response.body).toEqual({
       field: '',
       error: 'Invalid username or password'
+    })
+  })
+
+  it('should return a 404 response if the user id from token is invalid', async () => {
+    const { sut, repositorySpy, tokenGeneratorSpy } = makeSut()
+
+    tokenGeneratorSpy.verify.mockReturnValueOnce({ id: 1 })
+
+    jest.spyOn(repositorySpy, 'find')
+      .mockResolvedValueOnce(null)
+
+    const request = {
+      ...httpRequest,
+      body: {
+        token: 'any_token'
+      }
+    }
+
+    const response = await sut.verify(request)
+
+    expect(repositorySpy.find).toBeCalledWith(1)
+    expect(response.status).toBe(404)
+    expect(response.body).toEqual({
+      field: 'token verification',
+      error: 'Id from token didn\'t exists'
     })
   })
 })

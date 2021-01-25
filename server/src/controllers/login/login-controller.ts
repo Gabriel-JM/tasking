@@ -95,4 +95,31 @@ export class LoginController {
       return ErrorParser.catch(catchedError)
     }
   }
+
+  async verify(request: HttpRequest) {
+    try {
+      const { token } = request.body as { token: string }
+
+      const userFromToken = this.tokenGenerator.verify(token)
+
+      const user = await this.repository.find(userFromToken.id)
+      
+      if(!user) {
+        return HttpResponse.notFound({
+          field: 'token verification',
+          error: 'Id from token didn\'t exists'
+        })
+      }
+
+      return HttpResponse.ok({
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        token
+      })
+    } catch(catchedError) {
+      return ErrorParser.catch(catchedError)
+    }
+  }
 }
