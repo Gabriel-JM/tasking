@@ -8,7 +8,7 @@ export class ErrorParser {
   static catch(err: Error | SqliteError): HttpResponseData {
     let customError: HttpResponseData | null = null
 
-    process.env.SHOW_LOGS && console.dir(err)
+    process.env.SHOW_LOGS === 'true' && console.dir(err)
 
     if('code' in err) {
       const { code, message } = err as SqliteError
