@@ -10,6 +10,7 @@ function makeSut() {
 }
 
 describe('Login Repository', () => {
+  let insertedId: number
   const user = {
     name: 'any name',
     username: 'any_user',
@@ -30,6 +31,7 @@ describe('Login Repository', () => {
     const sut = makeSut()
   
     const insertedUser = await sut.save(user)
+    insertedId = insertedUser.id as number
     const [fromDbUser] = await testDb('users').where({ id: insertedUser.id })
 
     expect(insertedUser).toBeDefined()
@@ -62,7 +64,29 @@ describe('Login Repository', () => {
     })
 
     expect(findedUser).toEqual({
-      id: 1,
+      id: insertedId,
+      ...user
+    })
+  })
+
+  it('should return the correspondent user by the given id', async () => {
+    const sut = makeSut()
+
+    const findedUser = await sut.find(insertedId)
+
+    expect(findedUser).toEqual({
+      id: insertedId,
+      ...user
+    })
+  })
+
+  it('should return null if no user finded with the given id', async () => {
+    const sut = makeSut()
+
+    const findedUser = await sut.find(insertedId)
+
+    expect(findedUser).toEqual({
+      id: insertedId,
       ...user
     })
   })

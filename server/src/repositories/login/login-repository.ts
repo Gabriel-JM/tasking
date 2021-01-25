@@ -8,6 +8,12 @@ export class LoginRepository implements ILoginRepository {
     private readonly knex: Knex<User>
   ) {}
 
+  async find(id: number) {
+    const [user] = await this.knex(this.table).where({ id })
+
+    return user || null
+  }
+
   async findByUsernameAndPassword(content: { username: string, password: string }) {
     const [user] = await this.knex(this.table).where({
       username: content.username,
