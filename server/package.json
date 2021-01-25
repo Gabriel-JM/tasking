@@ -4,9 +4,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon -q --exec ts-node src/main",
-    "dotenv": "node -r dotenv-safe/config",
-    "test": "cross-env NODE_ENV=test npm run dotenv -- ./node_modules/jest/bin/jest.js --runInBand --no-cache",
+    "start": "cross-env NODE_ENV=development SHOW_LOGS=1 nodemon -q --exec ts-node src/main",
+    "test": "cross-env NODE_ENV=test SHOW_LOGS='' jest --runInBand --no-cache",
     "test:unit": "npm test -- --watch -c jest-unit.config.js",
     "test:integration": "npm test -- --watch -c jest-integration.config.js",
     "migration": "knex migrate:latest --knexfile knexfile.ts",
