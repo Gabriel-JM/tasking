@@ -184,4 +184,40 @@ describe('Login Controller', () => {
       error: 'Id from token didn\'t exists'
     })
   })
+
+  it('should return 200 response with the refreshed user info and the current token', async () => {
+    const { sut, repositorySpy, tokenGeneratorSpy } = makeSut()
+
+    tokenGeneratorSpy.verify.mockReturnValueOnce({ id: 1 })
+
+    const fakeUser = {
+      id: 1,
+      name: 'any_name',
+      username: 'any_username',
+      email: 'any@email.com',
+      password: 'any_password'
+    }
+
+    jest.spyOn(repositorySpy, 'find')
+      .mockResolvedValueOnce(fakeUser)
+
+    const request = {
+      ...httpRequest,
+      body: {
+        token: 'any_token'
+      }
+    }
+
+    const response = await sut.verify(request)
+
+    expect(repositorySpy.find).toBeCalledWith(1)
+    expect(response.status).toBe(200)
+    expect(response.body).toEqual({
+      token: request.body.token,
+      id: fakeUser.id,
+      name: fakeUser.name,
+      username: fakeUser.username,
+      email: fakeUser.email
+    })
+  })
 })
