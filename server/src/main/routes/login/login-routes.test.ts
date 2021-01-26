@@ -1,4 +1,5 @@
 import request from 'supertest'
+import { User } from '../../../protocols/models'
 import { connectionDatabase } from '../../../resources/database/connection'
 import { app } from '../../app'
 
@@ -69,4 +70,32 @@ describe('Login Routes', () => {
     })
   })
 
+  describe('/login/verify', () => {
+    let insertedUser: User & { token: string }
+
+    beforeAll(async () => {
+      const response = await request(app)
+        .post('/signup')
+        .send({
+          name: 'user name',
+          username: 'any.user',
+          email: 'user@email.com',
+          password: 'any.password'
+        })
+      ;
+      insertedUser = response.body
+    })
+
+    it('should a 200 response with the verified user credentials', async () => {
+      const response = await request(app)
+        .post('/login/verify')
+        .send({
+          token: insertedUser.token
+        })
+      ;
+
+      expect(response.status).toBe(200)
+      expect(response.body).toEqual(insertedUser)
+    })
+  })
 })
