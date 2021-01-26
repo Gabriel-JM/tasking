@@ -8,6 +8,12 @@ interface UserToRegister {
 }
 
 class LoginService {
+  async refresh(token: string) {
+    const response = await api.post('/login/verify', { token })
+
+    return response
+  }
+
   async register(user: UserToRegister) {
     const response = await api.post('/signup', user)
 
