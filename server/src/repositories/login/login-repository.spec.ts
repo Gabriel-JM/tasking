@@ -47,10 +47,7 @@ describe('Login Repository', () => {
   it('should return null if no user was found with the given username and password', async () => {
     const sut = makeSut()
 
-    const user = await sut.findByUsernameAndPassword({
-      username: '',
-      password: ''
-    })
+    const user = await sut.findByUsername('')
 
     expect(user).toBeNull()
   })
@@ -58,10 +55,7 @@ describe('Login Repository', () => {
   it('should return the correspondent user by the given username and password', async () => {
     const sut = makeSut()
 
-    const findedUser = await sut.findByUsernameAndPassword({
-      username: user.username,
-      password: user.password
-    })
+    const findedUser = await sut.findByUsername(user.username)
 
     expect(findedUser).toEqual({
       id: insertedId,

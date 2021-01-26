@@ -14,10 +14,9 @@ export class LoginRepository implements ILoginRepository {
     return user || null
   }
 
-  async findByUsernameAndPassword(content: { username: string, password: string }) {
+  async findByUsername(username: string) {
     const [user] = await this.knex(this.table).where({
-      username: content.username,
-      password: content.password
+      username
     })
 
     return user || null
