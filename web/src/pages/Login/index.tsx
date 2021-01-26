@@ -4,8 +4,11 @@ import { useForm } from 'react-hook-form'
 import { getInputFieldError } from '../../utils'
 import { schema } from './form-validation'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Link, useHistory } from 'react-router-dom'
+import { useAuth } from '../../providers/auth'
+import loginService from '../../services/login'
+
 import './login.css'
-import { Link } from 'react-router-dom'
 
 interface LoginData {
   username: string
@@ -13,12 +16,23 @@ interface LoginData {
 }
 
 function Login() {
+  const { signIn } = useAuth()
+  const history = useHistory()
   const { register, handleSubmit, errors } = useForm<LoginData>({
     resolver: yupResolver(schema)
   })
 
-  function onFormSubmit(data: LoginData) {
-    console.log('data', data)
+  async function onFormSubmit(data: LoginData) {
+    try {
+      const response = await loginService.login(data)
+
+      if(response.ok) {
+        signIn(response.data)
+        history.push('/dashboard')
+      }
+    } catch(catchedError) {
+      console.dir(catchedError)
+    }
   }
 
   return (
