@@ -7,7 +7,20 @@ interface UserToRegister {
   password: string
 }
 
+interface toLoginData {
+  username: string
+  password: string
+}
+
 class LoginService {
+  async login(loginData: toLoginData) {
+    const response = await api.get('/login', {
+      authorization: btoa(`${loginData.username}:${loginData.password}`)
+    })
+
+    return response
+  }
+
   async refresh(token: string) {
     const response = await api.post('/login/verify', { token })
 
