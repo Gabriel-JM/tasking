@@ -35,11 +35,14 @@ export class LoginController {
         .split(':')
       ;
 
-      const user = await this.repository
-        .findByUsernameAndPassword({ username, password })
+      const hashPassword = await this.passwordHasher.hash(password)
+      const isPasswordValid = await this.passwordHasher
+        .compare(password, hashPassword)
       ;
 
-      if(!user) {
+      const user = await this.repository.findByUsername(username)
+
+      if(!user || !isPasswordValid) {
         return HttpResponse.notFound({
           field: '',
           error: 'Invalid username or password'

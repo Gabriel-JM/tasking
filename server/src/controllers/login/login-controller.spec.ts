@@ -5,7 +5,7 @@ import { LoginController } from './login-controller'
 function makeSut() {
   const repositorySpy = <ILoginRepository> {
     find(_id: number) {},
-    findByUsernameAndPassword(_content: any) {},
+    findByUsername(_username: string) {},
     save(_content: any) {}
   }
   const passwordHasherSpy = {
@@ -141,7 +141,7 @@ describe('Login Controller', () => {
   it('should return a 404 response if no user was found with the given credentials', async () => {
     const { sut, repositorySpy } = makeSut()
 
-    jest.spyOn(repositorySpy, 'findByUsernameAndPassword')
+    jest.spyOn(repositorySpy, 'findByUsername')
       .mockResolvedValueOnce(null)
 
     const response = await sut.index({
