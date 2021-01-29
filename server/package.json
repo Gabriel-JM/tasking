@@ -9,6 +9,7 @@
     "test": "cross-env NODE_ENV=test npm run dotenv -- node_modules/.bin/jest --runInBand --no-cache --forceExit",
     "test:unit": "npm test -- --watch -c jest-unit.config.js",
     "test:integration": "npm test -- --watch -c jest-integration.config.js",
+    "test:cov": "npm test -- --coverage",
     "migration": "knex migrate:latest --knexfile knexfile.ts",
     "migration:reset": "knex migrate:rollback"
   },
