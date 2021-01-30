@@ -1,5 +1,6 @@
 import { ILoginRepository } from '../../protocols/domain'
 import { SqliteError } from '../../protocols/utils'
+import { BasicAuthorizationError } from '../../utils/errors/basic-authorization-error'
 import { LoginController } from './login-controller'
 
 function makeSut() {
@@ -17,12 +18,17 @@ function makeSut() {
     verify: jest.fn()
   }
   const emailValidatorSpy = { isValid: jest.fn(() => true) }
+  const authHeaderParserSpy = {
+    basic: jest.fn(),
+    bearer: jest.fn()
+  }
 
   const sut = new LoginController(
     repositorySpy,
     passwordHasherSpy,
     tokenGeneratorSpy,
-    emailValidatorSpy
+    emailValidatorSpy,
+    authHeaderParserSpy
   )
 
   return {
@@ -30,7 +36,8 @@ function makeSut() {
     repositorySpy,
     passwordHasherSpy,
     tokenGeneratorSpy,
-    emailValidatorSpy
+    emailValidatorSpy,
+    authHeaderParserSpy
   }
 }
 
@@ -139,10 +146,12 @@ describe('Login Controller', () => {
   })
 
   it('should return a 404 response if no user was found with the given credentials', async () => {
-    const { sut, repositorySpy } = makeSut()
+    const { sut, repositorySpy, authHeaderParserSpy } = makeSut()
 
     jest.spyOn(repositorySpy, 'findByUsername')
       .mockResolvedValueOnce(null)
+
+    authHeaderParserSpy.basic.mockReturnValueOnce(['user', 'password'])
 
     const response = await sut.index({
       ...httpRequest,
@@ -157,6 +166,27 @@ describe('Login Controller', () => {
     expect(response.body).toEqual({
       field: '',
       error: 'Invalid username or password'
+    })
+  })
+
+  it('should return a 400 response if basic authorization is invalid', async () => {
+    const { sut, authHeaderParserSpy } = makeSut()
+
+    authHeaderParserSpy.basic.mockImplementationOnce(() => {
+      throw new BasicAuthorizationError()
+    })
+
+    const response = await sut.index({
+      ...httpRequest,
+      headers: {
+        authorization: 'any_text'
+      }
+    })
+
+    expect(response.status).toBe(400)
+    expect(response.body).toEqual({
+      field: 'authorization',
+      error: new BasicAuthorizationError().message
     })
   })
 

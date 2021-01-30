@@ -2,9 +2,11 @@ import { ILoginRepository } from '../../protocols/domain'
 import { HttpRequest } from '../../protocols/infra'
 import { User } from '../../protocols/models'
 import { Hasher, IEmailValidator } from '../../protocols/utils'
+import { AuthorizationHeaderParser } from '../../protocols/utils/authorization-header-parser'
 import { TokenGenerator } from '../../protocols/utils/token-generator'
 import { ErrorParser } from '../../resources/errors/error-parser'
 import { HttpResponse } from '../../resources/http/http-response'
+import { BasicAuthorizationError } from '../../utils/errors/basic-authorization-error'
 
 export class LoginController {
 
@@ -12,7 +14,8 @@ export class LoginController {
     private readonly repository: ILoginRepository,
     private readonly passwordHasher: Hasher,
     private readonly tokenGenerator: TokenGenerator,
-    private readonly emailValidator: IEmailValidator
+    private readonly emailValidator: IEmailValidator,
+    private readonly headerParser: AuthorizationHeaderParser
   ) {}
 
   async index(request: HttpRequest) {
@@ -26,14 +29,7 @@ export class LoginController {
         })
       }
       
-      const [username, password] = Buffer
-        .from(
-          authorization.replace(/Basic /, ''),
-          'base64'
-        )
-        .toString()
-        .split(':')
-      ;
+      const [username, password] = this.headerParser.basic(authorization)
 
       const hashPassword = await this.passwordHasher.hash(password)
       const isPasswordValid = await this.passwordHasher
@@ -59,6 +55,13 @@ export class LoginController {
         token
       })
     } catch(catchedError) {
+      if(catchedError instanceof BasicAuthorizationError) {
+        return HttpResponse.badRequest({
+          field: 'authorization',
+          error: catchedError.message
+        })
+      }
+
       return ErrorParser.catch(catchedError)
     }
   }
