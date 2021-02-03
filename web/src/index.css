@@ -34,3 +34,8 @@ body {
 input, button, textarea {
   color: var(--font-color);
 }
+
+.container {
+  max-width: var(--container-size);
+  margin: auto;
+}
