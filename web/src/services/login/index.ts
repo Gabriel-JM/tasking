@@ -15,7 +15,7 @@ interface toLoginData {
 class LoginService {
   async login(loginData: toLoginData) {
     const response = await api.get('/login', {
-      authorization: btoa(`${loginData.username}:${loginData.password}`)
+      authorization: `Basic ${btoa(`${loginData.username}:${loginData.password}`)}`
     })
 
     return response
