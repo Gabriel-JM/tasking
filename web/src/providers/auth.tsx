@@ -34,11 +34,14 @@ export function AuthProvider({ children }: AuthContextProps) {
 
       if(ok) {
         signIn(data)
+        setIsAuthLoading(false)
+      } else {
+        console.log(data)
       }
     }
 
     refreshUser()
-  })
+  }, [])
   
   function signIn(user: User) {
     setUser(user)
