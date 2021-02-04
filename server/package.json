@@ -4,7 +4,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development SHOW_LOGS=1 nodemon --ext=ts --exec ts-node src/main",
+    "start": "cross-env NODE_ENV=development SHOW_LOGS=1 nodemon --exec ts-node src/main",
     "dotenv": "node -r dotenv-safe/config",
     "test": "cross-env NODE_ENV=test npm run dotenv -- node_modules/.bin/jest --runInBand --no-cache --forceExit",
     "test:unit": "npm test -- --watch -c jest-unit.config.js",
