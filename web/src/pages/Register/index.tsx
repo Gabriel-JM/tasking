@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import InputField from '../../components/Forms/InputField'
 import { getInputFieldError } from '../../utils'
 import { schema } from './form-validation'
 import loginService from '../../services/login'
+import { useAuth } from '../../providers/auth'
 import './register.css'
 
 interface RegisterData {
@@ -16,6 +17,8 @@ interface RegisterData {
 }
 
 function Register() {
+  const { signIn } = useAuth()
+  const history = useHistory()
   const { register, errors, handleSubmit } = useForm<RegisterData>({
     resolver: yupResolver(schema)
   })
@@ -23,7 +26,10 @@ function Register() {
   async function onFormSubmit(data: RegisterData) {
     const response = await loginService.register(data)
 
-    console.log(response, data)
+    if(response.ok) {
+      signIn(response.data)
+      history.push('/')
+    }
   }
 
   return (
