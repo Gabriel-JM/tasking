@@ -17,4 +17,20 @@ export class CategoriesController {
       return ErrorParser.catch(catchedError)
     }
   }
+
+  async create(request: HttpRequest) {
+    try {
+      const { color, name, user } = request.body as Category
+
+      const category = await this.repository.save!({
+        name,
+        color,
+        user
+      })
+
+      return HttpResponse.ok(category)
+    } catch(catchedError) {
+      return ErrorParser.catch(catchedError)
+    }
+  }
 }

@@ -3,7 +3,8 @@ import { CategoriesController } from './categories-controller'
 
 function makeSut() {
   const repositorySpy = {
-    findAll: jest.fn()
+    findAll: jest.fn(),
+    save: jest.fn()
   }
 
   const sut = new CategoriesController(repositorySpy)
@@ -19,7 +20,11 @@ describe('Categories Controller', () => {
     params: {},
     headers: {},
     query: {},
-    body: {}
+    body: {
+      name: 'any_name',
+      color: '#ff7788',
+      user: 1
+    }
   }
   
   describe('Index', () => {
@@ -31,6 +36,24 @@ describe('Categories Controller', () => {
 
       expect(response.status).toBe(200)
       expect(response.body).toEqual([])
+    })
+  })
+
+  describe('Create', () => {
+    it('should return a 200 response with the newly created category', async () => {
+      const { sut, repositorySpy } = makeSut()
+      repositorySpy.save.mockResolvedValueOnce({
+        id: 1,
+        ...httpRequest.body
+      })
+      
+      const response = await sut.create(httpRequest)
+
+      expect(response.status).toBe(200)
+      expect(response.body).toEqual({
+        id: 1,
+        ...httpRequest.body
+      })
     })
   })
 })
