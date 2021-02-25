@@ -3,22 +3,29 @@ import { CategoriesController } from './categories-controller'
 
 function makeSut() {
   const repositorySpy = {
-    findAll: jest.fn(),
+    findAllByUserId: jest.fn(),
     save: jest.fn()
   }
 
-  const sut = new CategoriesController(repositorySpy)
+  const sessionUsecaseSpy = {
+    extractUser: jest.fn()
+  }
+
+  const sut = new CategoriesController(repositorySpy, sessionUsecaseSpy)
 
   return {
     sut,
-    repositorySpy
+    repositorySpy,
+    sessionUsecaseSpy
   }
 }
 
 describe('Categories Controller', () => {
   const httpRequest = <HttpRequest> {
     params: {},
-    headers: {},
+    headers: {
+      authorization: 'any_auth_token'
+    },
     query: {},
     body: {
       name: 'any_name',
@@ -29,10 +36,14 @@ describe('Categories Controller', () => {
   
   describe('Index', () => {
     it('should return all categories', async () => {
-      const { sut, repositorySpy } = makeSut()
-      repositorySpy.findAll.mockResolvedValueOnce([])
+      const { sut, repositorySpy, sessionUsecaseSpy } = makeSut()
+      sessionUsecaseSpy.extractUser.mockResolvedValueOnce({
+        ok: true,
+        data: { id: 1 }
+      })
+      repositorySpy.findAllByUserId.mockResolvedValueOnce([])
 
-      const response = await sut.index()
+      const response = await sut.index(httpRequest)
 
       expect(response.status).toBe(200)
       expect(response.body).toEqual([])
