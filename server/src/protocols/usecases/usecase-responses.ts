@@ -7,3 +7,5 @@ export interface UseCaseFailResponse {
   ok: false,
   error: string
 }
+
+export type UseCaseResponses = UseCaseSuccessResponse | UseCaseFailResponse
