@@ -35,7 +35,22 @@ describe('Categories Controller', () => {
   }
   
   describe('Index', () => {
-    it('should return all categories', async () => {
+    it('should return a 400 response if no authorization header is provided', async () => {
+      const { sut } = makeSut()
+
+      const response = await sut.index({
+        ...httpRequest,
+        headers: {}
+      })
+
+      expect(response.status).toBe(400)
+      expect(response.body).toEqual({
+        field: 'authorization',
+        error: 'Empty authorization field'
+      })
+    })
+
+    it('should return a 200 response with all categories', async () => {
       const { sut, repositorySpy, sessionUsecaseSpy } = makeSut()
       sessionUsecaseSpy.extractUser.mockResolvedValueOnce({
         ok: true,
