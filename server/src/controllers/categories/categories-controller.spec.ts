@@ -50,6 +50,23 @@ describe('Categories Controller', () => {
       })
     })
 
+    it('should return a 400 response if SessionUseCase returns a UseCaseFailResponse', async () => {
+      const { sut, sessionUsecaseSpy } = makeSut()
+
+      sessionUsecaseSpy.extractUser.mockReturnValueOnce({
+        ok: false,
+        error: 'Error'
+      })
+
+      const response = await sut.index(httpRequest)
+
+      expect(response.status).toBe(400)
+      expect(response.body).toEqual({
+        field: 'authorization',
+        error: 'Error'
+      })
+    })
+
     it('should return a 200 response with all categories', async () => {
       const { sut, repositorySpy, sessionUsecaseSpy } = makeSut()
       sessionUsecaseSpy.extractUser.mockResolvedValueOnce({
